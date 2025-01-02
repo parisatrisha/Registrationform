@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f8; /* Light background color for the page */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 500px;
+            text-align: left;
+        }
+
+        h1 {
+            color: #007BFF; /* Blue for the header to attract attention */
+            font-size: 28px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .form-row label {
+            width: 48%;
+            font-size: 14px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007BFF; /* Blue border on focus for emphasis */
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        .checkbox-group label {
+            width: 45%;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .separator {
+            border-top: 1px solid #ddd;
+            margin: 20px 0;
+        }
+
+        button {
+            background-color: #28a745; /* Green background for the button */
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838; /* Darker green when hovered */
+        }
+
+        .summary {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 20px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        ul li {
+            color: #333;
+            margin: 5px 0;
+        }
+
+        .highlight {
+            color: #FF6347; /* Tomato red color for important texts */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Student Registration Form</h1>
+
+        <form id="registrationForm">
+            <div class="form-row">
+                <label for="name">Name:
+                    <input type="text" id="name" name="name" required>
+                </label>
+
+                <label for="id">Student ID:
+                    <input type="text" id="id" name="id" required>
+                </label>
+            </div>
+
+            <div class="form-row">
+                <label for="year">Year:
+                    <input type="text" id="year" name="year" required>
+                </label>
+
+                <label for="semester">Semester:
+                    <input type="text" id="semester" name="semester" required>
+                </label>
+            </div>
+
+            <h3>Select Courses:</h3>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="SkillDevelopment" name="courses" value="Skill Development">
+                    Skill Development
+                </label>
+
+                <label>
+                    <input type="checkbox" id="DeepLearning" name="courses" value="Deep Learning">
+                    Deep Learning
+                </label>
+
+                <label>
+                    <input type="checkbox" id="ProblemSolving2" name="courses" value="Problem Solving-2">
+                    Problem Solving-2
+                </label>
+
+                <label>
+                    <input type="checkbox" id="PDC" name="courses" value="PDC">
+                    PDC
+                </label>
+
+                <label>
+                    <input type="checkbox" id="TermPaper" name="courses" value="Term Paper">
+                    Term Paper
+                </label>
+
+                <label>
+                    <input type="checkbox" id="EPAM" name="courses" value="EPAM">
+                    EPAM
+                </label>
+            </div>
+
+            <div class="separator"></div>
+
+            <button type="submit">Submit Registration</button>
+        </form>
+
+        <div class="summary" id="registrationSummary"></div>
+
+        <div class="footer">© 2024 Student Registration. All rights reserved.</div>
+    </div>
+
+    <script>
+        const form = document.getElementById('registrationForm');
+        const summaryDiv = document.getElementById('registrationSummary');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const id = document.getElementById('id').value;
+            const year = document.getElementById('year').value;
+            const semester = document.getElementById('semester').value;
+
+            const selectedCourses = [];
+            const unselectedCourses = [];
+            const courses = ['SkillDevelopment', 'DeepLearning', 'ProblemSolving2', 'PDC', 'TermPaper', 'EPAM'];
+
+            courses.forEach(course => {
+                if (document.getElementById(course).checked) {
+                    selectedCourses.push(course.replace(/([A-Z])/g, ' $1'));
+                } else {
+                    unselectedCourses.push(course.replace(/([A-Z])/g, ' $1'));
+                }
+            });
+
+            const summaryHTML = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Student ID:</strong> ${id}</p>
+                <p><strong>Year:</strong> ${year}</p>
+                <p><strong>Semester:</strong> ${semester}</p>
+                <h3 class="highlight">Courses Selected:</h3>
+                <ul>
+                    ${selectedCourses.map(course => `<li>${course}</li>`).join('')}
+                </ul>
+                <h3 class="highlight">Courses Not Selected:</h3>
+                <ul>
+                    ${unselectedCourses.map(course => `<li>${course}</li>`).join('')}
+                </ul>
+                <p><strong>Registration Successful!</strong></p>
+            `;
+
+            summaryDiv.innerHTML = summaryHTML;
+        });
+    </script>
+
+</body>
+</html>
